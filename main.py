@@ -53,4 +53,5 @@ for i in range((dataset.get_test_size())):
         if np.argmax(test_y) == np.argmax(pred):
             correct += 1
 
+print("Test set size: " + str(dataset.get_test_size()))
 print("Accuracy: " + str(float(correct)/float(dataset.get_test_size())))
