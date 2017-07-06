@@ -51,6 +51,6 @@ def post_process(tf, sess, args={}):
         ops.append(tf.assign(fc3, net_data["fc8"][0]))
         ops.append(tf.assign(bfc3, net_data["fc8"][1]))
 
-        sess.run(ops)
+        return ops
         # print(b1.eval(session=sess))
         # print(net_data["conv1"][1])
