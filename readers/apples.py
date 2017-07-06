@@ -1,4 +1,5 @@
 import random
+import os
 from numpy import *
 from scipy.misc import imread
 from scipy.misc import imresize
@@ -17,21 +18,25 @@ class Dataset(object):
         self.file_names()
 
     def file_names(self):
-        for i in range(582):
-            self.files.append("Glomerella/glomerella_" + str(i))
-            self.gts.append(0)
-        for i in range(340):
-            self.files.append("Herbicida/herbicida_" + str(i))
-            self.gts.append(1)
-        for i in range(370):
-            self.files.append("Magnesio/magnesio_" + str(i))
-            self.gts.append(2)
-        for i in range(356):
-            self.files.append("Potassio/potassio_" + str(i))
-            self.gts.append(3)
-        for i in range(408):
-            self.files.append("Sarna/sarna_" + str(i))
-            self.gts.append(4)
+        files = os.listdir("data/apples/Glomerella")
+        self.files += ["Glomerella/" + f for f in files]
+        self.gts += [0]*len(files)
+
+        files = os.listdir("data/apples/Herbicida")
+        self.files += ["Herbicida/" + f for f in files]
+        self.gts += [1]*len(files)
+
+        files = os.listdir("data/apples/Magnesio")
+        self.files += ["Magnesio/" + f for f in files]
+        self.gts += [2]*len(files)
+
+        files = os.listdir("data/apples/Potassio")
+        self.files += ["Potassio/" + f for f in files]
+        self.gts += [3]*len(files)
+
+        files = os.listdir("data/apples/Sarna")
+        self.files += ["Sarna/" + f for f in files]
+        self.gts += [4]*len(files)
 
         aux = zip(self.files, self.gts)
         random.seed()
@@ -56,7 +61,7 @@ class Dataset(object):
         for i in range(0, batch_size):
             folder = self.train[self.counter_train]
             truth = self.gt_train[self.counter_train]
-            rgb = imresize((imread('data/apples/' + folder + '.jpg')[:,:]).astype(float32), (227, 227, 3))
+            rgb = imresize((imread('data/apples/' + folder)[:,:]).astype(float32), (227, 227, 3))
             images.append(rgb)
             one_hot = [0.0]*5
             one_hot[truth] = 1.0
@@ -76,7 +81,7 @@ class Dataset(object):
         for i in range(0, batch_size):
             folder = self.test[self.counter_test]
             truth = self.gt_test[self.counter_test]
-            rgb = imresize((imread('data/apples/' + folder + '.jpg')[:,:]).astype(float32), (227, 227, 3))
+            rgb = imresize((imread('data/apples/' + folder)[:,:]).astype(float32), (227, 227, 3))
             images.append(rgb)
             one_hot = [0.0]*5
             one_hot[truth] = 1.0

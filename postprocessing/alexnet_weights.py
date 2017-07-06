@@ -1,6 +1,6 @@
 from numpy import concatenate, load, argsort
 def post_process(tf, sess, args={}):
-    net_data = load("data/sketch/bvlc_alexnet.npy").item()
+    net_data = load("data/bvlc_alexnet.npy").item()
     ops = []
     with tf.variable_scope("structure", reuse=True):
         conv1 = tf.get_variable("conv1")
