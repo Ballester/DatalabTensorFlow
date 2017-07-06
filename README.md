@@ -23,3 +23,7 @@ The trickiest folder. This one allows you to make changes in a structure after i
 
 ## utils folder
 Contains utility functions
+
+## Todo list
++ Implement saver
++ ???

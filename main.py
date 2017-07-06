@@ -1,9 +1,10 @@
 """
 Definitions
 """
-import config.sketch as config
-from structures.alexnet import create_structure
-from readers.sketch import Dataset
+import config.apples as config
+# from structures.alexnet import create_structure
+from structures.alexnet_apples import create_structure
+from readers.apples import Dataset
 from postprocessing.alexnet_weights import post_process
 
 """
@@ -34,25 +35,22 @@ dataset = Dataset()
 Training
 """
 for i in range((dataset.get_training_size() * config.epochs)/config.batch_size):
+    if (i%10 == 0):
+        print("Training %d" % i)
     train_x, train_y = dataset.next_batch(config.batch_size)
     feed_dict = {x: train_x, y_: train_y}
-    sess.run(train_step)
+    sess.run(train_step, feed_dict=feed_dict)
 
 """
 Do experiment here:
 """
-from utils.sketch.caffe_classes import class_names
-# for i in range(dataset.get_test_size()):
-# x_test, y_test = dataset.next_test(config.batch_size)
-from scipy.misc import imread
-from scipy.misc import imresize
+correct = 0
+for i in range((dataset.get_test_size())):
+    test_x, test_y = dataset.next_test(config.batch_size)
+    feed_dict = {x: test_x, y_: [[0.0]*5]*config.batch_size}
+    pred = sess.run(y, feed_dict=feed_dict)
+    for j in range(config.batch_size):
+        if np.argmax(test_y) == np.argmax(pred):
+            correct += 1
 
-x_test = [imresize((imread('/home/ballester/Documents/bathtub.jpg')[:,:,:]).astype(np.float32), (227, 227, 3))]
-y_test = [[0.0]*1000]
-
-output = sess.run(y, feed_dict={x: x_test, y_: y_test})
-
-inds = np.argsort(output)[0,:]
-# expected_number = output[0].index(1.0)
-for i in range(5):
-    print class_names[inds[-1-i]], output[0, inds[-1-i]]
+print("Accuracy: " + str(float(correct)/float(dataset.get_test_size())))
