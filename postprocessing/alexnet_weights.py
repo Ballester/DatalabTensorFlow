@@ -1,5 +1,5 @@
 from numpy import concatenate, load, argsort
-def post_process(tf, sess):
+def post_process(tf, sess, args={}):
     net_data = load("data/sketch/bvlc_alexnet.npy").item()
     ops = []
     with tf.variable_scope("structure", reuse=True):

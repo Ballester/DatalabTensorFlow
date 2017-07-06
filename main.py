@@ -4,7 +4,7 @@ Definitions
 import config.sketch as config
 from structures.alexnet import create_structure
 from readers.sketch import Dataset
-from postprocessing.sketch import post_process
+from postprocessing.alexnet_weights import post_process
 
 """
 Core
