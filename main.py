@@ -5,7 +5,7 @@ import config.apples as config
 # from structures.alexnet import create_structure
 from structures.alexnet_apples import create_structure
 from readers.apples import Dataset
-from postprocessing.alexnet_weights import post_process
+from postprocessing.alexnet_weights_apples import post_process
 
 """
 Core
