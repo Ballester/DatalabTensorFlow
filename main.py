@@ -5,10 +5,7 @@ import config.apples as config
 # from structures.alexnet import create_structure
 from structures.alexnet_apples import create_structure
 from readers.apples import Dataset
-from postprocessing.nop import post_process
-
-from scipy.misc import imread
-from scipy.misc import imresize
+from postprocessing.alexnet_weights import post_process
 
 """
 Core
@@ -73,6 +70,8 @@ print("Accuracy: " + str(float(correct)/float(dataset.get_test_size())))
 """
 Example of single feedforward
 """
+# from scipy.misc import imread
+# from scipy.misc import imresize
 # from utils.sketch.caffe_classes import class_names
 # x_test = [imresize((imread('/home/ballester/Documents/bathtub.jpg')[:,:,:]).astype(np.float32), (227, 227, 3))]
 # y_test = [[0.0]*1000]
