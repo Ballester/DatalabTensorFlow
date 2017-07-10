@@ -10,7 +10,7 @@ output_size = (batch_size, 1000)
 Training
 """
 epochs = 0
-
+log_dir = 'sketch'
 
 """
 Testing

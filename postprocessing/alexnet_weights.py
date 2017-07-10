@@ -1,5 +1,5 @@
 from numpy import concatenate, load, argsort
-def post_process(tf, sess, args={}):
+def post_process(tf, args={}):
     net_data = load("data/bvlc_alexnet.npy").item()
     ops = []
     with tf.variable_scope("structure", reuse=True):
@@ -51,6 +51,7 @@ def post_process(tf, sess, args={}):
         ops.append(tf.assign(fc3, net_data["fc8"][0]))
         ops.append(tf.assign(bfc3, net_data["fc8"][1]))
 
+        # print(ops)
         return ops
         # print(b1.eval(session=sess))
         # print(net_data["conv1"][1])
