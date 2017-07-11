@@ -1,3 +1,4 @@
+#!-*- conding: utf8 -*-
 import utils.variables as maker
 from numpy import prod
 

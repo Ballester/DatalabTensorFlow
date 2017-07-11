@@ -1,3 +1,4 @@
+#!-*- conding: utf8 -*-
 def weight_variable(tf, shape, name, stddev=0.1):
     # initial = tf.truncated_normal(shape, stddev=stddev)
     # print(name)

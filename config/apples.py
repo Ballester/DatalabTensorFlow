@@ -1,3 +1,5 @@
+#!-*- conding: utf8 -*-
+
 """
 Hyper parameters
 """

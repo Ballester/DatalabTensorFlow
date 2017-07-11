@@ -1,3 +1,4 @@
+#!-*- conding: utf8 -*-
 import random
 from numpy import *
 from scipy.misc import imread

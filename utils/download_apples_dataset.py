@@ -1,3 +1,4 @@
+#!-*- conding: utf8 -*-
 import os
 print("Downloading dataset...")
 os.system('wget https://www.dropbox.com/s/b81z064ohynhlgn/DataSet-AppleLeaves.zip -O data/apples_dataset.zip')
