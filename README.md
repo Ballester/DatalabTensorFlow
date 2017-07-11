@@ -7,7 +7,7 @@ Datalab UFPel TensorFlow Framework
 
 Wget command line downloader
 
-## First: Clone the Repository
+## Clone the Repository
 
 ```shell
 git clone https://github.com/Ballester/DatalabTensorFlow.git
