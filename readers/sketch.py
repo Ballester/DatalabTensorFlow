@@ -27,7 +27,7 @@ class Dataset(object):
     xdim = train_x.shape[1:]
     ydim = train_y.shape[1]
 
-    def __init__(self):
+    def __init__(self, args={}):
         """Open reference file"""
         with open('utils/sketch/one-hot_references.txt') as fid:
             # dump

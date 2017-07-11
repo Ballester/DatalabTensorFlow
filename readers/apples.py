@@ -5,13 +5,19 @@ from scipy.misc import imread
 from scipy.misc import imresize
 
 class Dataset(object):
-    def __init__(self):
+    def __init__(self, args={}):
         self.train = []
         self.test = []
         self.files = []
         self.gts = []
         self.gt_train = []
         self.gt_test = []
+        self.cross_validation = False
+        if (args.has_key('n_folds')):
+            self.cross_validation = True
+            self.n_folds = args['n_folds']
+            self.seed = args['seed']
+            self.fold = args['fold']
 
         self.counter_train = 0
         self.counter_test = 0
@@ -39,15 +45,35 @@ class Dataset(object):
         self.gts += [4]*len(files)
 
         aux = zip(self.files, self.gts)
-        random.seed()
+        try:
+            random.seed(self.seed)
+        except:
+            random.seed()
         random.shuffle(aux)
         im, gt = zip(*aux)
+        im, gt = list(im), list(gt)
 
-        self.train = im[0:int(0.7*len(im))]
-        self.gt_train = gt[0:int(0.7*len(im))]
+        if self.cross_validation:
+            print("Doing cross validation with: ")
+            print("n_folds: ", self.n_folds)
+            print("fold: ", self.fold)
+            print("seed: ", self.seed)
+            images_per_fold = int(len(im)/self.n_folds)
+            self.test = im[images_per_fold*self.fold:images_per_fold*(self.fold+1)]
+            del im[images_per_fold*self.fold:images_per_fold*(self.fold+1)]
+            self.gt_test = gt[images_per_fold*self.fold:images_per_fold*(self.fold+1)]
+            del gt[images_per_fold*self.fold:images_per_fold*(self.fold+1)]
 
-        self.test = im[int(0.7*len(im)):]
-        self.gt_test = gt[int(0.7*len(im)):]
+            self.train = im
+            self.gt_train = gt
+
+        else:
+            #70 train 30 test
+            self.train = im[0:int(0.7*len(im))]
+            self.gt_train = gt[0:int(0.7*len(im))]
+
+            self.test = im[int(0.7*len(im)):]
+            self.gt_test = gt[int(0.7*len(im)):]
 
     def get_training_size(self):
         return len(self.train)
