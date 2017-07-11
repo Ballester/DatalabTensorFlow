@@ -3,7 +3,8 @@ Datalab UFPel TensorFlow Framework
 
 ## First: Clone the Repository
 Dependencies:
-[ImageMagick]: https://www.imagemagick.org/script/index.php
+[ImageMagick](https://www.imagemagick.org/script/index.php)
+
 Wget command line downloader
 
 ```shell
