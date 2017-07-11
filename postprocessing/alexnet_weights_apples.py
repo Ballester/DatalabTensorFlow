@@ -43,13 +43,13 @@ def post_process(tf, args={}):
         ops.append(tf.assign(conv5, net_data["conv5"][0]))
         ops.append(tf.assign(b5, net_data["conv5"][1]))
 
-        # ops.append(tf.assign(fc1, net_data["fc6"][0]))
-        # ops.append(tf.assign(bfc1, net_data["fc6"][1]))
+        ops.append(tf.assign(fc1, net_data["fc6"][0]))
+        ops.append(tf.assign(bfc1, net_data["fc6"][1]))
         #
-        # ops.append(tf.assign(fc2, net_data["fc7"][0]))
-        # ops.append(tf.assign(bfc2, net_data["fc7"][1]))
+        ops.append(tf.assign(fc2, net_data["fc7"][0]))
+        ops.append(tf.assign(bfc2, net_data["fc7"][1]))
         #
-        # ops.append(tf.assign(fc3, net_data["fc8"][0]))
+        #ops.append(tf.assign(fc3, net_data["fc8"][0]))
         # ops.append(tf.assign(bfc3, net_data["fc8"][1]))
 
         # print(ops)
