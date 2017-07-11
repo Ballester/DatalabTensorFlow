@@ -1,3 +1,4 @@
+#!-*- coding: utf8 -*-
 import random
 import os
 from numpy import *

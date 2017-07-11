@@ -1,13 +1,26 @@
 # DatalabTensorFlow
 Datalab UFPel TensorFlow Framework
 
+## Dependencies:
+
+[ImageMagick](https://www.imagemagick.org/script/index.php)
+
+Wget command line downloader
+
+## Clone the Repository
+
+```shell
+git clone https://github.com/Ballester/DatalabTensorFlow.git
+```
+
+
 ## Tutorial
 Here you can download a dataset and train your first network. This steps make you download the apples diseases dataset and a pre-trained Alexnet model.
 
 ```shell
-python utils/download_apples_dataset.py
-python utils/download_alexnet_weights.py
-python main.py
+python3 utils/download_apples_dataset.py
+python3 utils/download_alexnet_weights.py
+python3 main.py
 ```
 
 The framework is organized as follows:

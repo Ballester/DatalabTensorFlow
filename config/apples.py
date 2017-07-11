@@ -1,3 +1,4 @@
+#!-*- coding: utf8 -*-
 from optparse import OptionParser
 parser = OptionParser()
 parser.add_option("-n", "--n_folds", dest="n_folds",

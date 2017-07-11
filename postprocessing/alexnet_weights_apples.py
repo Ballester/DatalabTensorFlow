@@ -1,6 +1,7 @@
+#!-*- coding: utf8 -*-
 from numpy import concatenate, load, argsort
 def post_process(tf, args={}):
-    net_data = load("data/bvlc_alexnet.npy").item()
+    net_data = load("data/bvlc_alexnet.npy",encoding='latin1').item()
     ops = []
     with tf.variable_scope("structure", reuse=True):
         conv1 = tf.get_variable("conv1")

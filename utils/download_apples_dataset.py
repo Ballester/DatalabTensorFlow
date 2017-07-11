@@ -1,6 +1,7 @@
+#!-*- coding: utf8 -*-
 import os
 print("Downloading dataset...")
-os.system('wget https://www.dropbox.com/s/b81z064ohynhlgn/DataSet-AppleLeaves.zip -O data/apples_dataset.zip')
+os.system('wget -c https://www.dropbox.com/s/b81z064ohynhlgn/DataSet-AppleLeaves.zip -O data/apples_dataset.zip')
 
 print("Unzipping files...")
 os.system('unzip data/apples_dataset.zip -d data/apples')

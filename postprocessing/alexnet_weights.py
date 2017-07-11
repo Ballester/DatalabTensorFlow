@@ -1,3 +1,4 @@
+#!-*- coding: utf8 -*-
 from numpy import concatenate, load, argsort
 def post_process(tf, args={}):
     net_data = load("data/bvlc_alexnet.npy").item()
