@@ -42,7 +42,7 @@ train_writer = tf.summary.FileWriter(os.path.join('/tmp', config.log_dir), sess.
 """
 Training
 """
-for i in range((dataset.get_training_size() * config.epochs)/config.batch_size):
+for i in range(int((dataset.get_training_size() * config.epochs)/config.batch_size)):
     if (i%10 == 0):
         print("Training %d" % i)
     train_x, train_y = dataset.next_batch(config.batch_size)
