@@ -34,7 +34,7 @@ if config.cross_validation:
     args = {
         "n_folds": config.n_folds,
         "fold": config.fold,
-        "seed": config.seed
+        "seed": config.seed,
     }
 
 dataset = Dataset(args)
@@ -74,7 +74,10 @@ for i in range(0, dataset.get_test_size(), config.batch_size):
     done += config.batch_size
 
 print("Tests done: " + str(done))
-print("Accuracy: " + str(float(correct)/float(dataset.get_test_size())))
+accuracy = str(float(correct)/float(dataset.get_test_size()))
+print("Accuracy: " + accuracy)
+fid = open('logs/' + config.log + '_' + str(config.fold)  + '.txt', 'w')
+fid.write(accuracy)
 
 """
 Example of single feedforward

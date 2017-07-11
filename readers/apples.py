@@ -17,9 +17,9 @@ class Dataset(object):
         if (args.has_key('n_folds')):
             self.cross_validation = True
             self.n_folds = args['n_folds']
-            self.seed = args['seed']
+            if args['seed'] != -1:
+                self.seed = args['seed']
             self.fold = args['fold']
-
         self.counter_train = 0
         self.counter_test = 0
         self.file_names()
@@ -46,8 +46,10 @@ class Dataset(object):
         self.gts += [4]*len(files)
 
         aux = zip(self.files, self.gts)
+        random_seed = True
         try:
             random.seed(self.seed)
+            random_seed = False
         except:
             random.seed()
         random.shuffle(aux)
@@ -58,7 +60,10 @@ class Dataset(object):
             print("Doing cross validation with: ")
             print("n_folds: ", self.n_folds)
             print("fold: ", self.fold)
-            print("seed: ", self.seed)
+            if random_seed:
+                print("seed: random")
+            else:
+                print("seed: ", self.seed)
             images_per_fold = int(len(im)/self.n_folds)
             self.test = im[images_per_fold*self.fold:images_per_fold*(self.fold+1)]
             del im[images_per_fold*self.fold:images_per_fold*(self.fold+1)]

@@ -7,6 +7,8 @@ parser.add_option("-f", "--current_fold", dest="fold",
                   help="fold in which the network is working", default=2)
 parser.add_option("-s", "--seed", dest="seed",
                   help="seed which is used for randomization at dataset", default=-1)
+parser.add_option("-l", "--log", dest="log",
+                  help="name of the log file that will be generated", default="apple")
 
 (options, args) = parser.parse_args()
 
@@ -32,5 +34,6 @@ cross_validation = False
 n_folds = int(options.n_folds)
 fold = int(options.fold)
 seed = int(options.seed)
+log = options.log
 if n_folds > 1:
     cross_validation = True
