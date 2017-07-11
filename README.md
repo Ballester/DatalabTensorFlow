@@ -1,7 +1,7 @@
 # DatalabTensorFlow
 Datalab UFPel TensorFlow Framework
 
-##First: Clone the Repository
+## First: Clone the Repository
 ```shell
 git clone https://github.com/Ballester/DatalabTensorFlow.git
 ```
