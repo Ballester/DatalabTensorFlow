@@ -4,7 +4,7 @@ Definitions
 """
 import config.apples as config
 # from structures.alexnet import create_structure
-from structures.resnet50 import create_structure
+from structures.vgg19 import create_structure
 from readers.apples import Dataset
 from postprocessing.nop import post_process
 
