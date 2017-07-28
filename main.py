@@ -84,50 +84,54 @@ train_writer = tf.summary.FileWriter(os.path.join('/tmp', config.log_dir), sess.
 """
 Training
 """
-cont = 0
-for i in range(int((dataset.get_training_size() * config.epochs)/config.batch_size)):
-    if (i%200 == 0):
-        print("Training %d" % i)
-        correct = 0
-        done = 0
-        cm = np.zeros((5,5))
-        #print(dataset.get_test_size())
-        for j in range(0, dataset.get_test_size(), config.batch_size):
-            #print(j)
-            test_x, test_y = dataset.next_test(config.batch_size)
-            feed_dict = {x: test_x, y_: [[0.0]*5]*config.batch_size, K.learning_phase(): 0}
-            pred = sess.run(prob, feed_dict=feed_dict)
-            #print ("Pred and Test")
-            #print(pred)
-            #print(np.array(test_y))
-            for k in range(config.batch_size):
-                #print(k)
-                cont += 1
-                if np.argmax(test_y[k]) == np.argmax(pred[k]):
-                    correct += 1
-                cm[np.argmax(test_y[k])][np.argmax(pred[k])] += 1
+eval_graph = tf.Graph()
+with eval_graph.as_default():
+    with eval_graph.gradient_override_map({'Relu': 'GuidedRelu'}):
 
-            done += config.batch_size
-        print(cm)
-        heats_im, heats_gt = dataset.get_examples_of_each_class()
-        #print heats_im[0]
-        #print(heats_gt)
-        gb_grad_value, target_conv_layer_value, target_conv_layer_grad_value = sess.run([gb_grad, target_conv_layer, target_conv_layer_grad_norm], feed_dict={x: heats_im, y_: heats_gt})
+        cont = 0
+        for i in range(int((dataset.get_training_size() * config.epochs)/config.batch_size)):
+            if (i%200 == 0):
+                print("Training %d" % i)
+                correct = 0
+                done = 0
+                cm = np.zeros((5,5))
+                #print(dataset.get_test_size())
+                for j in range(0, dataset.get_test_size(), config.batch_size):
+                    #print(j)
+                    test_x, test_y = dataset.next_test(config.batch_size)
+                    feed_dict = {x: test_x, y_: [[0.0]*5]*config.batch_size, K.learning_phase(): 0}
+                    pred = sess.run(prob, feed_dict=feed_dict)
+                    #print ("Pred and Test")
+                    #print(pred)
+                    #print(np.array(test_y))
+                    for k in range(config.batch_size):
+                        #print(k)
+                        cont += 1
+                        if np.argmax(test_y[k]) == np.argmax(pred[k]):
+                            correct += 1
+                        cm[np.argmax(test_y[k])][np.argmax(pred[k])] += 1
 
-        for l in range(0, config.batch_size):
-            utils.visualize(heats_im[l], target_conv_layer_value[l], target_conv_layer_grad_value[l], gb_grad_value[l], i+l)
-            #heatmap = visualize_cam(model, -1, filter_indices=None, seed_input=heats_im[l], backprop_modifier='guided')
-            #plt.imsave('heat_' + str(l) + '_'  + str(i) + '.png', overlay(heats_im[l], heatmap))
+                    done += config.batch_size
+                print(cm)
+                heats_im, heats_gt = dataset.get_examples_of_each_class()
+                #print heats_im[0]
+                #print(heats_gt)
+                gb_grad_value, target_conv_layer_value, target_conv_layer_grad_value = sess.run([gb_grad, target_conv_layer, target_conv_layer_grad_norm], feed_dict={x: heats_im, y_: heats_gt})
 
-        print("Tests done: " + str(done))
-        with open("alexnet.txt", "a") as fid:
-            fid.write(str(float(correct)/float(dataset.get_test_size())) + "\n")
-        print("Accuracy: " + str(float(correct)/float(dataset.get_test_size())))
-        print(cont)
-    train_x, train_y = dataset.next_batch(config.batch_size)
-    feed_dict = {x: train_x, y_: train_y, K.learning_phase(): 1}
-    summary, _ = sess.run([summaries, train_step], feed_dict=feed_dict)
-    train_writer.add_summary(summary, i)
+                for l in range(0, config.batch_size):
+                    utils.visualize(heats_im[l], target_conv_layer_value[l], target_conv_layer_grad_value[l], gb_grad_value[l], i+l)
+                    #heatmap = visualize_cam(model, -1, filter_indices=None, seed_input=heats_im[l], backprop_modifier='guided')
+                    #plt.imsave('heat_' + str(l) + '_'  + str(i) + '.png', overlay(heats_im[l], heatmap))
+
+                print("Tests done: " + str(done))
+                with open("alexnet.txt", "a") as fid:
+                    fid.write(str(float(correct)/float(dataset.get_test_size())) + "\n")
+                print("Accuracy: " + str(float(correct)/float(dataset.get_test_size())))
+                print(cont)
+            train_x, train_y = dataset.next_batch(config.batch_size)
+            feed_dict = {x: train_x, y_: train_y, K.learning_phase(): 1}
+            summary, _ = sess.run([summaries, train_step], feed_dict=feed_dict)
+            train_writer.add_summary(summary, i)
 
 
 """
